@@ -10,22 +10,20 @@ use File::Basename;
 use Test::Builder;
 use File::Find;
 
-my $test      = Test::Builder->new();
-my $test_bool = 1;
-my $plan      = 0;
-my $counter   = 0;
+our $test      = Test::Builder->new();
+our $plan      = 0;
 
 =head1 NAME
 
-Test::CheckChanges - Check that the Chages file matches the distrobution.
+Test::CheckChanges - Check that the Changes file matches the distribution.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 SYNOPSIS
 
@@ -71,27 +69,34 @@ The ok_changes method takes no arguments and returns no value.
 
 =cut
 
+
 sub ok_changes
 {
-    die "ok_changes() does not accept any arguments" if @_;
     my $version;
     my $diag;
     my $msg = 'Check Changes';
+    my %p = @_;
+    my $_base = delete $p{base};
+    $_base ||= '';
+
+    die if keys %p;
 
     $test->plan(tests => 1) unless $plan;
 
+    my $base = Cwd::realpath(dirname(File::Spec->rel2abs($0)) . '/../' . $_base);
+
     my $bool     = 1;
-    my $home     = Cwd::realpath(dirname(File::Spec->rel2abs($0)) . '/..');
+    my $home     = $base;
     my @change_files = ('Changes', 'CHANGES');
 
-    my @changes  = grep( { -r $_ } map({ Cwd::realpath($home . '/' . $_ ) } @change_files));
+    my @changes  = grep( { $_ && -r $_ } map({ Cwd::realpath($home . '/' . $_ ) } @change_files));
 
     if (@changes < 1) {
         $diag = "No Changes file found: [@change_files]"
     } elsif (@changes > 1) {
-        $diag = "Multipul Changes files found: [@changes]"
+        $diag = "Multiple Changes files found: [@changes]"
     } else {
-	my $makefile = Cwd::realpath($home . '/Makefile');
+	my $makefile = Cwd::realpath($base . '/Makefile');
 	my $build = Cwd::realpath($home . '/_build/build_params');
 	if ($build && -r $build) {
 	    require Module::Build::Version;

@@ -1,5 +1,9 @@
 Revision history for Perl extension Test::CheckChanges
 
+0.02 Fri, 02 May 2008 15:25:27 -0400
+	- coverage is now 98%
+	- added many tests
+
 0.01 Fri, 02 May 2008 09:43:35 -0400
 	- everything
 	- original release

@@ -1,9 +1,9 @@
 NAME
-    Test::CheckChanges - Check that the Chages file matches the
-    distrobution.
+    Test::CheckChanges - Check that the Changes file matches the
+    distribution.
 
 VERSION
-    Version 0.01
+    Version 0.02
 
 SYNOPSIS
      use Test::CheckChanges;
