@@ -1,0 +1,32 @@
+NAME
+    Test::CheckChanges - Check that the Chages file matches the
+    distrobution.
+
+VERSION
+    Version 0.01
+
+SYNOPSIS
+     use Test::CheckChanges;
+     ok_changes();
+
+DESCRIPTION
+    Currently only checks that the version in the changes file matches the
+    version of the distrobution.
+
+    The version is taken out of the Build data or the Makefile.
+
+FUNCTIONS
+    All functions listed below are exported to the calling namespace.
+
+  ok_changes( )
+        The ok_changes method takes no arguments and returns no value.
+
+AUTHOR
+    "G. Allen Morris III" <gam3@gam3.net>
+
+COPYRIGHT & LICENSE
+    Copyright (C) 2008 G. Allen Morris III, all rights reserved.
+
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+

@@ -1,0 +1,25 @@
+---
+name: Test-CheckChanges
+version: 0.01
+author:
+  - '"G. Allen Morris III" <gam3@gam3.net>'
+abstract: Check that the Chages file matches the distrobution.
+license: perl
+resources:
+  license: http://dev.perl.org/licenses/
+requires:
+  perl: 5.006
+build_requires:
+  Test::More: 0
+recommends:
+  Module::Build: 0
+  Test::Pod: 0
+  Test::Pod::Coverage: 0
+provides:
+  Test::CheckChanges:
+    file: lib/Test/CheckChanges.pm
+    version: 0.01
+generated_by: Module::Build version 0.2807
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2

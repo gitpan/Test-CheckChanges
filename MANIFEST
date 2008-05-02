@@ -1,0 +1,11 @@
+Build.PL
+Changes
+lib/Test/CheckChanges.pm
+Makefile.PL
+MANIFEST			This list of files
+META.yml
+README
+t/changes.t
+t/pod.t
+t/pod_coverage.t
+SIGNATURE    Added here by Module::Build
