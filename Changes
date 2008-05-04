@@ -1,5 +1,10 @@
 Revision history for Perl extension Test::CheckChanges
 
+0.03 Sun, 04 May 2008 08:20:55 -0400
+	- removed the multiple file test
+	  it failed on some operating systems.
+	- if there are a Changes and a CHANGES file they are both tested.
+
 0.02 Fri, 02 May 2008 15:25:27 -0400
 	- coverage is now 98%
 	- added many tests

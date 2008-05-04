@@ -8,7 +8,6 @@ use Carp;
 use File::Spec;
 use File::Basename;
 use Test::Builder;
-use File::Find;
 
 our $test      = Test::Builder->new();
 our $plan      = 0;
@@ -19,11 +18,11 @@ Test::CheckChanges - Check that the Changes file matches the distribution.
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 SYNOPSIS
 
@@ -87,44 +86,47 @@ sub ok_changes
 
     my $bool     = 1;
     my $home     = $base;
-    my @change_files = ('Changes', 'CHANGES');
-
-    my @changes  = grep( { $_ && -r $_ } map({ Cwd::realpath($home . '/' . $_ ) } @change_files));
-
-    if (@changes < 1) {
-        $diag = "No Changes file found: [@change_files]"
-    } elsif (@changes > 1) {
-        $diag = "Multiple Changes files found: [@changes]"
-    } else {
-	my $makefile = Cwd::realpath($base . '/Makefile');
-	my $build = Cwd::realpath($home . '/_build/build_params');
-	if ($build && -r $build) {
-	    require Module::Build::Version;
-	    open(IN, $build);
-	    my $data = join '', <IN>;
-	    close IN;
-            my $temp = eval $data;
-            $version = $temp->[2]{dist_version};
-	} elsif ($makefile && -r $makefile) {
-	    open(IN, $makefile) or die;
-	    while (<IN>) {
-	        chomp;
-		if (/^VERSION\s*=\s*(.*)\s*/) {
-		    $version = $1;
-		    last;
-		}
-	    }
-	    close(IN) or die;
-	} else {
-	    die 'no way to determine version';
-	}
-    }
+    my @change_files = grep /(Changes|CHANGES)/, glob($home . '/C*');
     my $ok = 0;
-    if ($version) {
+    if (@change_files == 0) {
+	$diag = q(No 'Changes' file found);
+    } elsif (@change_files != 1) {
+	$diag = q(Multiple 'Changes' files found);
+    }
+
+    my $makefile = Cwd::realpath($base . '/Makefile');
+    my $build = Cwd::realpath($home . '/_build/build_params');
+    if ($build && -r $build) {
+	require Module::Build::Version;
+	open(IN, $build);
+	my $data = join '', <IN>;
+	close IN;
+	my $temp = eval $data;
+	$version = $temp->[2]{dist_version};
+    } elsif ($makefile && -r $makefile) {
+	open(IN, $makefile) or die;
+	while (<IN>) {
+	    chomp;
+	    if (/^VERSION\s*=\s*(.*)\s*/) {
+		$version = $1;
+		last;
+	    }
+	}
+	close(IN) or die;
+    } else {
+	$diag = "No way to determine version";
+	$version = "_none_";
+    }
+
+    if (!defined $version) {
+        $version = '_none_';
+	$diag = "Current Version not found.";
+    }
+    for my $change (@change_files) {
 	$msg = "Changes version $version";
 	my $first_version;
-	open(IN, $changes[0]) or die;
-        while (<IN>) {
+	open(IN, $change) or die "Could not open ($change) File";
+	while (<IN>) {
 	    chomp;
 	    if (/^\d/) {
 		my ($cvers, $date) = split(/\s+/, $_, 2);
@@ -138,8 +140,7 @@ sub ok_changes
 		    } else {
 			$diag ||= "expecting version $version, got $cvers";
 		    }
-#warn "version: $version ($date)\n";
-            } elsif (/^\s+version: ([\d.]+)$/) {
+	    } elsif (/^\s+version: ([\d.]+)$/) {
 		if ($version eq $1) {
 		    $ok = 1;
 		    $diag = undef;
@@ -147,8 +148,7 @@ sub ok_changes
 		} else {
 		    $diag ||= "expecting version $version, got $1";
 		}
-            } elsif (/^\s/) {
-
+	    } elsif (/^\s/) {
 	    } else {
 	    }
 	}
@@ -160,6 +160,27 @@ sub ok_changes
 }
 
 1;
+
+=head1 CHANGES FILE FORMAT
+
+Currently this package parses 2 different types of C<Changes> files.
+The first is the common, free style, C<Changes> file where the version
+is first item on an unindetned line:
+
+ 0.01  Fri May  2 15:56:25 EDT 2008
+       - more info  
+
+The second type of file parsed is the L<Module::Changes::YAML> format changes file.
+
+Create an RT if you need a different format file supported.  If it is not horrid, I will add it.
+
+The Debian style C<Changes> file will like be the first new format added.
+
+=head1 BUGS
+
+Please open an RT if you find a bug.
+
+L<http://rt.cpan.org/Public/Dist/Display.html?Name=Test-CheckChanges>
 
 =head1 AUTHOR
 
