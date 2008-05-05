@@ -3,10 +3,21 @@ NAME
     distribution.
 
 VERSION
-    Version 0.03
+    Version 0.04
 
 SYNOPSIS
      use Test::CheckChanges;
+     ok_changes();
+
+    You can make the test optional with
+
+     use Test::More;
+     eval 'use Test::CheckChanges;';
+     if ($@) {
+         plan skip_all => 'Test::CheckChanges required for testing the Changes file';
+     } else {
+         plan tests => 1;
+     }
      ok_changes();
 
 DESCRIPTION

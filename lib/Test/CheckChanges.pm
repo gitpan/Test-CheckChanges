@@ -10,7 +10,6 @@ use File::Basename;
 use Test::Builder;
 
 our $test      = Test::Builder->new();
-our $plan      = 0;
 
 =head1 NAME
 
@@ -18,15 +17,26 @@ Test::CheckChanges - Check that the Changes file matches the distribution.
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =cut
 
-our $VERSION = '0.03';
+our $VERSION = 0.04;
 
 =head1 SYNOPSIS
 
  use Test::CheckChanges;
+ ok_changes();
+
+You can make the test optional with 
+
+ use Test::More;
+ eval 'use Test::CheckChanges;';
+ if ($@) {
+     plan skip_all => 'Test::CheckChanges required for testing the Changes file';
+ } else {
+     plan tests => 1;
+ }
  ok_changes();
 
 =head1 DESCRIPTION
@@ -50,8 +60,6 @@ sub import {
 
     $test->exported_to($caller);
     $test->plan(%plan);
-    
-    $plan = 1 if(exists $plan{tests});
 }
 
 =head1 FUNCTIONS
@@ -80,7 +88,7 @@ sub ok_changes
 
     die if keys %p;
 
-    $test->plan(tests => 1) unless $plan;
+    $test->plan(tests => 1) unless $test->{Have_Plan};
 
     my $base = Cwd::realpath(dirname(File::Spec->rel2abs($0)) . '/../' . $_base);
 
