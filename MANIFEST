@@ -1,14 +1,7 @@
 Build.PL
 Changes
-examples/multiple/Changes
-examples/multiple/CHANGES
-examples/multiple/Makefile
 examples/test1/_build/build_params
 examples/test1/Changes
-examples/test2/Changes
-examples/test2/ChangeS
-examples/test2/CHANGES
-examples/test2/Makefile
 examples/test3/Changes
 examples/test3/Makefile
 examples/test6/Changes
@@ -25,12 +18,10 @@ META.yml
 README
 t/changes.t
 t/missing.t
-t/multi.t
 t/optional.t
 t/pod.t
 t/pod_coverage.t
 t/test1.t
-t/test2.t
 t/test3.t
 t/test4.t
 t/test5.t

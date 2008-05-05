@@ -17,11 +17,11 @@ Test::CheckChanges - Check that the Changes file matches the distribution.
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =cut
 
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 
 =head1 SYNOPSIS
 
@@ -76,11 +76,9 @@ The ok_changes method takes no arguments and returns no value.
 
 =cut
 
-
 sub ok_changes
 {
     my $version;
-    my $diag;
     my $msg = 'Check Changes';
     my %p = @_;
     my $_base = delete $p{base};
@@ -95,11 +93,14 @@ sub ok_changes
     my $bool     = 1;
     my $home     = $base;
     my @change_files = grep /(Changes|CHANGES)/, glob($home . '/C*');
-    my $ok = 0;
+    my @diag = ();
+
+    my $ok = 1;
     if (@change_files == 0) {
-	$diag = q(No 'Changes' file found);
+	push(@diag, q(No 'Changes' file found));
+	$ok = 0;
     } elsif (@change_files != 1) {
-	$diag = q(Multiple 'Changes' files found);
+	push(@diag, q(Multiple 'Changes' files found));
     }
 
     my $makefile = Cwd::realpath($base . '/Makefile');
@@ -122,16 +123,20 @@ sub ok_changes
 	}
 	close(IN) or die;
     } else {
-	$diag = "No way to determine version";
+	push(@diag, "No way to determine version");
 	$version = "_none_";
+	$ok = 0;
     }
 
     if (!defined $version) {
         $version = '_none_';
-	$diag = "Current Version not found.";
+	push( @diag, "Current Version not found.");
+	$ok = 0;
+    } else {
+	$msg = "Changes version $version";
     }
     for my $change (@change_files) {
-	$msg = "Changes version $version";
+        my @not_found = ();
 	my $first_version;
 	open(IN, $change) or die "Could not open ($change) File";
 	while (<IN>) {
@@ -142,29 +147,33 @@ sub ok_changes
 			$cvers = $1;
 		    }
 		    if ($version eq $cvers) {
-			$ok = 1;
-			$diag = undef;
+			@not_found = ();
 			last;
 		    } else {
-			$diag ||= "expecting version $version, got $cvers";
+			push(@not_found, "$cvers");
 		    }
 	    } elsif (/^\s+version: ([\d.]+)$/) {
 		if ($version eq $1) {
-		    $ok = 1;
-		    $diag = undef;
+		    @not_found = ();
 		    last;
 		} else {
-		    $diag ||= "expecting version $version, got $1";
+		    push(@not_found, "$1");
 		}
 	    } elsif (/^\s/) {
 	    } else {
 	    }
 	}
 	close(IN) or die;
+	if (@not_found) {
+            $ok = 0;
+	    push(@diag, qq(expecting version $version, got ). join(', ', @not_found));
+	}
     }
 
     $test->ok($ok, $msg);
-    $test->diag($diag) if defined $diag;
+    for my $diag (@diag) {
+	$test->diag($diag);
+    }
 }
 
 1;

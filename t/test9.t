@@ -15,9 +15,9 @@ print "1..2\n";
 	shift;
 	my $x = shift;
 	if ($x) {
-	    print "not ok - ok\n";
+	    print "not ok 1 - @_\n";
 	} else {
-	    print "ok 1 - ok\n";
+	    print "ok 1 - @_\n";
 	}
     }; 
     sub diag {
