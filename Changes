@@ -1,5 +1,9 @@
 Revision history for Perl extension Test::CheckChanges
 
+0.06 Tue, 06 May 2008 21:20:53 -0400
+	- test1 and test4 failed if Module::Build was not istalled.
+	  Those tests are now skiped if Module::Build is not installed.
+
 0.05 Mon, 05 May 2008 07:46:27 -0400
 	- removed multiple file tests.  Improved error handling.
 	  Tests were failing on Darwin.

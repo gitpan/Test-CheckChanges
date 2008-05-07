@@ -15,11 +15,11 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 badac0e40137c1d34beb5fabea9c6a3e1f9675eb Build.PL
-SHA1 d2b8f9030d635d3573e20113ee82465a88239088 Changes
+SHA1 92fe2587adb95cc29ab18ed35502eafdeca5830a Changes
 SHA1 75949cfa16d8cfc1d24756eefe33c3ca87bd3d13 MANIFEST
-SHA1 c686c21ab5e33ea40b51f512500f876f5dd167b0 META.yml
+SHA1 8ae82f4ae24a8a8c6689b3ba5ce9604f53aadd71 META.yml
 SHA1 7627238ce7289e05b823ba49c879caf617a9b2bd Makefile.PL
-SHA1 1d16056ed63267e9b4aac7ef277553bcf19dfaec README
+SHA1 d8d429bfb712360807036df6fbc7fe342a574315 README
 SHA1 6a677ea6f79a4604e073a4582989f81d997f202d examples/test1/Changes
 SHA1 3431c79c3a1e875d5a75f3cafc5af7929870a483 examples/test1/_build/build_params
 SHA1 5eede8ff157d5f64920965838cb23090aefd8341 examples/test3/Changes
@@ -31,15 +31,15 @@ SHA1 5eede8ff157d5f64920965838cb23090aefd8341 examples/test8/Changes
 SHA1 14b8b9954d094b11587d4d79005e0ce23b7bdc67 examples/test8/Makefile
 SHA1 da39a3ee5e6b4b0d3255bfef95601890afd80709 examples/test9/Changes
 SHA1 da39a3ee5e6b4b0d3255bfef95601890afd80709 examples/test9/Makefile
-SHA1 f0f4f55ca0394fca384b954055c91e119170fa23 lib/Test/CheckChanges.pm
+SHA1 a13a2098c30185353cc206600178b16f6fa692e4 lib/Test/CheckChanges.pm
 SHA1 017724c8b847b6b409b4079d76935270868b0f65 t/changes.t
 SHA1 0f1c2dac14b0a1af3a561212a76356eb0d1c0a34 t/missing.t
 SHA1 eaa18f41286f07291e8fc86dfeef628db84f2af9 t/optional.t
 SHA1 9d38eb83b6fa38c6d35dc1892b5a03f108e0719f t/pod.t
 SHA1 2adc8acd2956b87972abc56ff01f46541e86165b t/pod_coverage.t
-SHA1 5eda35aa729dcdf501dc52e7859f5cd8435cf358 t/test1.t
+SHA1 0ac18101404d706477b30cf485ef2c6ae8c1a8d1 t/test1.t
 SHA1 42933a1164ebf1cfc8e7fc1284233bb59cf400ab t/test3.t
-SHA1 ce983463c8d69cd2ede4658588f97ad254b8aac4 t/test4.t
+SHA1 c48f51fa63ba2fd7970a9ff8b526423022a2bf46 t/test4.t
 SHA1 5083aa86ac1986ca00d3c08a750ef21e43ead28c t/test5.t
 SHA1 096f5e69f01da11ce6acfc21ace52953260a5ff5 t/test6.t
 SHA1 dae5a2156d72b767d5b83ac92b07c7a7c5426c0d t/test7.t
@@ -49,8 +49,8 @@ SHA1 533d4079ddab34f9feb1bd70bfae004df3b1de11 t/unit.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.6 (GNU/Linux)
 
-iGcEARECACcFAkge9CQgGmh0dHA6Ly93d3cuZ2FtMy5uZXQvcG9saWN5Lmh0bWwA
-CgkQliSr/X1H0Fy94ACgmZkoZCNJPfYTXMCSrH9Yr4EiWn4AoNro4vXsuzmp0ZJM
-TPw+MjuSNeGR
-=a5p/
+iGcEARECACcFAkghBQMgGmh0dHA6Ly93d3cuZ2FtMy5uZXQvcG9saWN5Lmh0bWwA
+CgkQliSr/X1H0Fy3ewCgtTW/wp/F7g8QojWb/bOtHJjNYuIAoOdhQ4WwvaSMBFzY
+WfAg/iCtgj3E
+=b7yn
 -----END PGP SIGNATURE-----
