@@ -7,10 +7,16 @@ $Test::CheckChanges::test = bless {}, 'Dummy';
 our $x = $Test::CheckChanges::test;
 
 our @q = (
-    qr/expecting version 0.02, But no versions where found in the Changes file./,
+  qr/No way to determine version/,
 );
 
 our $count = 0;
+
+
+mkdir('t/bad/test1b/_build/');
+open(IN, '>t/bad/test1b/_build/build_params');
+close(IN);
+chmod(0, 't/bad/test1b/_build/build_params');
 
 {
     package Dummy;
@@ -28,7 +34,6 @@ our $count = 0;
     sub diag {
 	shift;
 	my $x = shift;
-warn $x unless defined $q[$count];
 	if ($x =~ $q[$count]) {
 	    print sprintf("ok %s - $x\n", ++$count+1);;
         } else {
@@ -48,3 +53,8 @@ Test::CheckChanges::ok_changes(
 while ($count < @q) {
     print sprintf("not ok %s\n", ++$count+1);;
 }
+
+__END__
+
+This test check tests the code when the _build data exists, but is not readable.
+

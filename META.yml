@@ -1,6 +1,6 @@
 ---
 name: Test-CheckChanges
-version: 0.06
+version: 0.07
 author:
   - '"G. Allen Morris III" <gam3@gam3.net>'
 abstract: Check that the Changes file matches the distribution.
@@ -18,8 +18,8 @@ recommends:
 provides:
   Test::CheckChanges:
     file: lib/Test/CheckChanges.pm
-    version: 0.06
-generated_by: Module::Build version 0.2807
+    version: 0.07
+generated_by: Module::Build version 0.280801
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
   version: 1.2

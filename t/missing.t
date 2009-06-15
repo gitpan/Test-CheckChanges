@@ -1,4 +1,3 @@
-
 use Test::More;
 require Test::CheckChanges;
 
@@ -6,8 +5,8 @@ $Test::CheckChanges::test = bless {}, 'Dummy';
 our $x = $Test::CheckChanges::test;
 
 our @q = (
-qr/No 'Changes' file found/,
 qr/No way to determine version/,
+qr/No 'Changes' file found/,
 );
 
 our $count = 0;
@@ -33,11 +32,12 @@ our $count = 0;
 	    print sprintf("not ok %s - $x\n", ++$count+1);;
 	}
     }; 
+    sub has_plan { undef; }
 }
 
 
 Test::CheckChanges::ok_changes(
-    base => 'examples/missing',
+    base => 't/bad/missing',
 );
 
 while ($count < 2) {

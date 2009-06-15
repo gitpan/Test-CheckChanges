@@ -3,7 +3,7 @@ NAME
     distribution.
 
 VERSION
-    Version 0.06
+    Version 0.07
 
 SYNOPSIS
      use Test::CheckChanges;
@@ -15,16 +15,28 @@ SYNOPSIS
      eval 'use Test::CheckChanges;';
      if ($@) {
          plan skip_all => 'Test::CheckChanges required for testing the Changes file';
-     } else {
-         plan tests => 1;
      }
      ok_changes();
 
 DESCRIPTION
-    Currently only checks that the version in the changes file matches the
-    version of the distrobution.
+    This module checks that you *Changes* file has an entry for the current
+    version of the Module being tested.
 
-    The version is taken out of the Build data or the Makefile.
+    The version information for the distribution being tested is taken out
+    of the Build data, or if that is not found, out of the Makefile.
+
+    It then attempts to open, in order, a file with the name *Changes* or
+    *CHANGES*.
+
+    The *Changes* file is then parsed for version numbers. If one and only
+    one of the version numbers matches the test passes. Otherwise the test
+    fails.
+
+    A message with the current version is printed if the test passes,
+    otherwise dialog messages are printed to help explain the failure.
+
+    The *examples* directory contains examples of the different formats of
+    *Changes* files that are recognized.
 
 FUNCTIONS
     All functions listed below are exported to the calling namespace.
@@ -33,20 +45,32 @@ FUNCTIONS
         The ok_changes method takes no arguments and returns no value.
 
 CHANGES FILE FORMAT
-    Currently this package parses 2 different types of "Changes" files. The
+    Currently this package parses 3 different types of "Changes" files. The
     first is the common, free style, "Changes" file where the version is
-    first item on an unindetned line:
+    first item on an unindented line:
 
      0.01  Fri May  2 15:56:25 EDT 2008
-           - more info  
+           - more info
 
     The second type of file parsed is the Module::Changes::YAML format
     changes file.
 
+    The third type of file parsed has the version number proceeded by an *
+    (asterisk).
+
+     Revision history for Perl extension Foo::Bar
+
+     * 1.00
+
+     Is this a bug or a feature
+
+    There are examples of these Changes file in the *examples* directory.
+
     Create an RT if you need a different format file supported. If it is not
     horrid, I will add it.
 
-    The Debian style "Changes" file will like be the first new format added.
+    The Debian style "Changes" file will likely be the first new format
+    added.
 
 BUGS
     Please open an RT if you find a bug.

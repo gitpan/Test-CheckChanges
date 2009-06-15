@@ -15,42 +15,66 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 badac0e40137c1d34beb5fabea9c6a3e1f9675eb Build.PL
-SHA1 92fe2587adb95cc29ab18ed35502eafdeca5830a Changes
-SHA1 75949cfa16d8cfc1d24756eefe33c3ca87bd3d13 MANIFEST
-SHA1 8ae82f4ae24a8a8c6689b3ba5ce9604f53aadd71 META.yml
-SHA1 7627238ce7289e05b823ba49c879caf617a9b2bd Makefile.PL
-SHA1 d8d429bfb712360807036df6fbc7fe342a574315 README
-SHA1 6a677ea6f79a4604e073a4582989f81d997f202d examples/test1/Changes
-SHA1 3431c79c3a1e875d5a75f3cafc5af7929870a483 examples/test1/_build/build_params
-SHA1 5eede8ff157d5f64920965838cb23090aefd8341 examples/test3/Changes
-SHA1 9c4243cc82bea6335c6a6cba6de89647ae9c5c36 examples/test3/Makefile
-SHA1 b8716e82387929b9289df713861f40d5e75779b7 examples/test6/Changes
-SHA1 6a677ea6f79a4604e073a4582989f81d997f202d examples/test7/Changes
-SHA1 15b149bc8920a2908f7af9a4dd51c2ff068c3fd8 examples/test7/Makefile
-SHA1 5eede8ff157d5f64920965838cb23090aefd8341 examples/test8/Changes
-SHA1 14b8b9954d094b11587d4d79005e0ce23b7bdc67 examples/test8/Makefile
-SHA1 da39a3ee5e6b4b0d3255bfef95601890afd80709 examples/test9/Changes
-SHA1 da39a3ee5e6b4b0d3255bfef95601890afd80709 examples/test9/Makefile
-SHA1 a13a2098c30185353cc206600178b16f6fa692e4 lib/Test/CheckChanges.pm
-SHA1 017724c8b847b6b409b4079d76935270868b0f65 t/changes.t
-SHA1 0f1c2dac14b0a1af3a561212a76356eb0d1c0a34 t/missing.t
-SHA1 eaa18f41286f07291e8fc86dfeef628db84f2af9 t/optional.t
+SHA1 856a95aaddf95851522c278a441e1eb5c67275a7 Changes
+SHA1 c2fedbb6680aaf68996531e403db051d15d88d48 MANIFEST
+SHA1 57372d26a259f548481912cd35094ffeca66cebd META.yml
+SHA1 a1d137169191d00d4bdd204211d4a9c84647f21e Makefile.PL
+SHA1 0dd1032049ed906f1b66e2bca5a05767aa7c9ca1 README
+SHA1 27f9fc192c38a30171338e66520e43326ea85cb5 examples/apocal/Changes
+SHA1 d099144eb6e8b85b4331e676d3a972b627e4d16b examples/apocal/Makefile
+SHA1 6a677ea6f79a4604e073a4582989f81d997f202d examples/common/Changes
+SHA1 5c084c50fe44844576993233cda1c749fd7a389f examples/common/Makefile
+SHA1 5eede8ff157d5f64920965838cb23090aefd8341 examples/yaml/Changes
+SHA1 9c4243cc82bea6335c6a6cba6de89647ae9c5c36 examples/yaml/Makefile
+SHA1 ca06436f394be9e59fc22d3df92879d45e5b0f8a lib/Test/CheckChanges.pm
+SHA1 0c791db5cdce98d392b9f7446f370468b4169af1 t/bad/missing2/README
+SHA1 552de64c0259d5b506cd1c73425e30b442b202b3 t/bad/mixxed/Changes
+SHA1 cc2f87f5e32b9b1ca7fe27e064e1364d15a54139 t/bad/mixxed/Makefile
+SHA1 90fec68554a470af4004c47cc3e3b406446fc6f4 t/bad/multiple/CHANGES
+SHA1 90fec68554a470af4004c47cc3e3b406446fc6f4 t/bad/multiple/Changes
+SHA1 be0b30201e33f5b412e981078aeb0b2951ffd9e2 t/bad/multiple/Makefile
+SHA1 6a677ea6f79a4604e073a4582989f81d997f202d t/bad/test1a/Changes
+SHA1 c701f2372879ded10a5fa65b336d524b1dd28445 t/bad/test1a/_build/build_params
+SHA1 6a677ea6f79a4604e073a4582989f81d997f202d t/bad/test1b/Changes
+SHA1 da39a3ee5e6b4b0d3255bfef95601890afd80709 t/bad/test1c/CHANGES
+SHA1 a8672d03e2a12ca7318385239c1df49426e2b42a t/bad/test1c/_build/build_params
+SHA1 6a677ea6f79a4604e073a4582989f81d997f202d t/bad/test2/Changes
+SHA1 16d4460487661ddebce960f88d6b83eaa9c19bd2 t/bad/test2/Makefile
+SHA1 5eede8ff157d5f64920965838cb23090aefd8341 t/bad/test3/Changes
+SHA1 23e8a461eb4c178dab735ea4e6f113a1d429b7f0 t/bad/test3/Makefile
+SHA1 9a2b741ade24867025b0b0a94a32caa2ea5338da t/bad/test4/Changes
+SHA1 5c084c50fe44844576993233cda1c749fd7a389f t/bad/test4/Makefile
+SHA1 27f9fc192c38a30171338e66520e43326ea85cb5 t/bad/test5/Changes
+SHA1 d099144eb6e8b85b4331e676d3a972b627e4d16b t/bad/test5/Makefile
+SHA1 669ab0db33db07a257eec2f7ebe1e6b6e8644ff1 t/bad/test6/Changes
+SHA1 5c084c50fe44844576993233cda1c749fd7a389f t/bad/test6/Makefile
+SHA1 669ab0db33db07a257eec2f7ebe1e6b6e8644ff1 t/bad/test7/Changes
+SHA1 f5ac356d95fe7b7506fcd2b95cb3acde8cf461ce t/changes.t
+SHA1 a77b6778baef53df903ad8bfa8c10a2706a44a78 t/missing.t
+SHA1 03638778b066abe4e93198abe7492a6d9fa5d6b2 t/mixxed.t
+SHA1 2f7de5c0790d640362d7dc070213b5bdba9bc94f t/multi.t
+SHA1 e3e2dfa2ee2cd40f9f0ba23dd175c649effc68c7 t/parse_apocal.t
+SHA1 a31358d01470c99efcc9a70f88dc134182610795 t/parse_common.t
+SHA1 e188b8247008aa5125f4cc6d36788635426e4c5a t/parse_yaml.t
 SHA1 9d38eb83b6fa38c6d35dc1892b5a03f108e0719f t/pod.t
 SHA1 2adc8acd2956b87972abc56ff01f46541e86165b t/pod_coverage.t
-SHA1 0ac18101404d706477b30cf485ef2c6ae8c1a8d1 t/test1.t
-SHA1 42933a1164ebf1cfc8e7fc1284233bb59cf400ab t/test3.t
-SHA1 c48f51fa63ba2fd7970a9ff8b526423022a2bf46 t/test4.t
-SHA1 5083aa86ac1986ca00d3c08a750ef21e43ead28c t/test5.t
-SHA1 096f5e69f01da11ce6acfc21ace52953260a5ff5 t/test6.t
-SHA1 dae5a2156d72b767d5b83ac92b07c7a7c5426c0d t/test7.t
-SHA1 1b19b387a738d43224b3e3e95d075869ee900397 t/test8.t
-SHA1 4bceba4003a5a0756854af3309dee3eae45df610 t/test9.t
-SHA1 533d4079ddab34f9feb1bd70bfae004df3b1de11 t/unit.t
+SHA1 205da0f2d350594c1c4c22add87e7adbf5c2d51d t/test1a.t
+SHA1 9e9362f2786d91309fe34907d857b1eed1323a97 t/test1b.t
+SHA1 2f157b3ea9761c89778519613f4e871db6ab6aac t/test1c.t
+SHA1 70a1c95ebb25e4ee016551823b62abe5bf96b4c6 t/test2.t
+SHA1 03638778b066abe4e93198abe7492a6d9fa5d6b2 t/test3.t
+SHA1 03638778b066abe4e93198abe7492a6d9fa5d6b2 t/test4.t
+SHA1 e1f5e78b8540ae294979d4b24735c7b1e35ed5c2 t/test5.t
+SHA1 6de77a3c620def668a7f543628683f8d7325b44d t/test6.t
+SHA1 29843ca6c20d94f8608dfc78ef25d95e9bb077e7 t/test7.t
+SHA1 503fdeb964041c0ee1857ee7f334782a8bba6360 t/testx.t
+SHA1 533c1a692d01191902b0070d03575ad59293c4c2 t/testy.t
+SHA1 2c042fe0f0d689753eb5ce2d6930ad7224e48d86 t/unit.t
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.6 (GNU/Linux)
+Version: GnuPG v1.4.9 (GNU/Linux)
 
-iGcEARECACcFAkghBQMgGmh0dHA6Ly93d3cuZ2FtMy5uZXQvcG9saWN5Lmh0bWwA
-CgkQliSr/X1H0Fy3ewCgtTW/wp/F7g8QojWb/bOtHJjNYuIAoOdhQ4WwvaSMBFzY
-WfAg/iCtgj3E
-=b7yn
+iGcEARECACcFAko1r5ggGmh0dHA6Ly93d3cuZ2FtMy5uZXQvcG9saWN5Lmh0bWwA
+CgkQliSr/X1H0Fzq/wCgoUx2DLVLhE6luV5uikP5x58iJqcAniq7+Eof8IlklYpv
+UjCjcTZ+NTRZ
+=KYcX
 -----END PGP SIGNATURE-----

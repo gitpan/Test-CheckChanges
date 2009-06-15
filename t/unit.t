@@ -4,8 +4,7 @@ require_ok 'Test::CheckChanges';
 
 
 eval {
-Test::CheckChanges::ok_changes('bob' => 'bill');
+    Test::CheckChanges::ok_changes('bob' => 'bill');
 };
 ok($@);
-
 

@@ -1,5 +1,3 @@
-use strict;
-
 use Test::More;
 require Test::CheckChanges;
 
@@ -7,11 +5,10 @@ $Test::CheckChanges::test = bless {}, 'Dummy';
 our $x = $Test::CheckChanges::test;
 
 our @q = (
-    qr/expecting version 0.02, But no versions where found in the Changes file./,
+qr/expecting version 1.020, found versions: 0.02, 0.01/
 );
 
 our $count = 0;
-
 {
     package Dummy;
     sub plan {
@@ -28,7 +25,6 @@ our $count = 0;
     sub diag {
 	shift;
 	my $x = shift;
-warn $x unless defined $q[$count];
 	if ($x =~ $q[$count]) {
 	    print sprintf("ok %s - $x\n", ++$count+1);;
         } else {
@@ -39,10 +35,8 @@ warn $x unless defined $q[$count];
 }
 
 
-our $name = $0;
-$name =~ s!^(?:.*/)?(.+?)(?:\.[^.]*)?$!$1!;
 Test::CheckChanges::ok_changes(
-    base => 't/bad/' . $name,
+    base => 't/bad/test2',
 );
 
 while ($count < @q) {

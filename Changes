@@ -1,8 +1,18 @@
 Revision history for Perl extension Test::CheckChanges
 
+0.07 Sat, 13 Jun 2009 23:43:29 -0400
+        - Test not fails if multiple Changes files are found.
+          CHANGES and Changes
+        - Apocal format Change files are now recognized
+          See example/apocal
+        - If no Version is found in the Changes file the test now fails.
+        - Moved 'bad' Changes files out of exaples
+        - improved coverage
+        - removed tests => from documentation and test as it is not needed.
+
 0.06 Tue, 06 May 2008 21:20:53 -0400
-	- test1 and test4 failed if Module::Build was not istalled.
-	  Those tests are now skiped if Module::Build is not installed.
+	- test1 and test4 failed if Module::Build was not installed.
+	  Those tests are now skipped if Module::Build is not installed.
 
 0.05 Mon, 05 May 2008 07:46:27 -0400
 	- removed multiple file tests.  Improved error handling.

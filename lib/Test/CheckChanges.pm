@@ -17,11 +17,11 @@ Test::CheckChanges - Check that the Changes file matches the distribution.
 
 =head1 VERSION
 
-Version 0.06
+Version 0.07
 
 =cut
 
-our $VERSION = 0.06;
+our $VERSION = 0.07;
 
 =head1 SYNOPSIS
 
@@ -34,28 +34,46 @@ You can make the test optional with
  eval 'use Test::CheckChanges;';
  if ($@) {
      plan skip_all => 'Test::CheckChanges required for testing the Changes file';
- } else {
-     plan tests => 1;
  }
  ok_changes();
 
 =head1 DESCRIPTION
 
-Currently only checks that the version in the changes file matches the
-version of the distrobution.
+This module checks that you I<Changes> file has an entry for the current version 
+of the B<Module> being tested.
 
-The version is taken out of the Build data or the Makefile.
+The version information for the distribution being tested is taken out
+of the Build data, or if that is not found, out of the Makefile.
+
+It then attempts to open, in order, a file with the name I<Changes> or I<CHANGES>.
+
+The I<Changes> file is then parsed for version numbers.  If one and only one of the
+version numbers matches the test passes.  Otherwise the test fails.
+
+A message with the current version is printed if the test passes, otherwise
+dialog messages are printed to help explain the failure.
+
+The I<examples> directory contains examples of the different formats of
+I<Changes> files that are recognized.
 
 =cut
+
+our $order = '';
+our @change_files = qw (Changes CHANGES);
 
 sub import {
     my $self   = shift;
     my $caller = caller;
     my %plan   = @_;
 
+    if (defined $plan{order}) {
+       $order = $plan{order};
+       delete $plan{order};
+    }
+
     for my $func ( qw( ok_changes ) ) {
-	no strict 'refs';
-	*{$caller."::".$func} = \&$func;
+        no strict 'refs';
+        *{$caller."::".$func} = \&$func;
     }
 
     $test->exported_to($caller);
@@ -79,95 +97,131 @@ The ok_changes method takes no arguments and returns no value.
 sub ok_changes
 {
     my $version;
-    my $msg = 'Check Changes';
+    my $msg = 'Unknown Error';
     my %p = @_;
-    my $_base = delete $p{base};
-    $_base ||= '';
+    my $_base = delete $p{base} || '';
 
-    die if keys %p;
+    die "ok_changes takes no arguments" if keys %p;
 
-    $test->plan(tests => 1) unless $test->{Have_Plan};
+    if (defined (my $x = $test->has_plan())) {
+        if ($x eq 'no_plan') {
+#	    warn "No plan";
+	} else {
+#	    warn "Plan $x";
+	}
+    } else {
+	$test->plan(tests => 1);
+    }
 
     my $base = Cwd::realpath(dirname(File::Spec->rel2abs($0)) . '/../' . $_base);
 
     my $bool     = 1;
     my $home     = $base;
-    my @change_files = grep /(Changes|CHANGES)/, glob($home . '/C*');
     my @diag = ();
-
-    my $ok = 1;
-    if (@change_files == 0) {
-	push(@diag, q(No 'Changes' file found));
-	$ok = 0;
-    } elsif (@change_files != 1) {
-	push(@diag, q(Multiple 'Changes' files found));
-    }
 
     my $makefile = Cwd::realpath($base . '/Makefile');
     my $build = Cwd::realpath($home . '/_build/build_params');
+
+    my $extra_text;
+
     if ($build && -r $build) {
-	require Module::Build::Version;
-	open(IN, $build);
-	my $data = join '', <IN>;
-	close IN;
-	my $temp = eval $data;
-	$version = $temp->[2]{dist_version};
+        require Module::Build::Version;
+        open(IN, $build);
+        my $data = join '', <IN>;
+        close(IN);
+        my $temp = eval $data;
+        $version = $temp->[2]{dist_version};
+	$extra_text = "Build";
     } elsif ($makefile && -r $makefile) {
-	open(IN, $makefile) or die;
-	while (<IN>) {
-	    chomp;
-	    if (/^VERSION\s*=\s*(.*)\s*/) {
-		$version = $1;
-		last;
-	    }
-	}
-	close(IN) or die;
+        open(IN, $makefile) or die "Could not open $makefile";
+        while (<IN>) {
+            chomp;
+            if (/^VERSION\s*=\s*(.*)\s*/) {
+                $version = $1;
+		$extra_text = "Makefile";
+                last;
+            }
+        }
+        close(IN) or die "Could not close $makefile";
+    }
+    if ($version) {
+	$msg = "CheckChages $version " . $extra_text;
     } else {
-	push(@diag, "No way to determine version");
-	$version = "_none_";
-	$ok = 0;
+        push(@diag, "No way to determine version");
+	$msg = "No Build or Makefile found";
     }
 
-    if (!defined $version) {
-        $version = '_none_';
-	push( @diag, "Current Version not found.");
-	$ok = 0;
-    } else {
-	$msg = "Changes version $version";
+    my $ok = 0;
+
+    my $mixed = 0;
+    my $found = 0;
+    my $parsed = '';
+    my @not_found = ();
+
+    my @change_list = map({my $file = "$home/$_"; (-r $file)?($file):();} @change_files);
+
+    my $change_file = shift(@change_list);
+
+    if (@change_list > 0) {
+	push(@diag, qq/Multiple 'Changes' files found (@change_list) using $change_file./);
     }
-    for my $change (@change_files) {
-        my @not_found = ();
-	my $first_version;
-	open(IN, $change) or die "Could not open ($change) File";
-	while (<IN>) {
-	    chomp;
-	    if (/^\d/) {
-		my ($cvers, $date) = split(/\s+/, $_, 2);
-		    if ($date =~ /- version ([\d.]+)$/) {
-			$cvers = $1;
-		    }
-		    if ($version eq $cvers) {
-			@not_found = ();
-			last;
-		    } else {
-			push(@not_found, "$cvers");
-		    }
-	    } elsif (/^\s+version: ([\d.]+)$/) {
-		if ($version eq $1) {
-		    @not_found = ();
-		    last;
-		} else {
-		    push(@not_found, "$1");
-		}
-	    } elsif (/^\s/) {
-	    } else {
-	    }
+
+    if ($change_file and $version) {
+        open(IN, $change_file) or die "Could not open ($change_file) File";
+        my $type = 0;
+        while (<IN>) {
+            chomp;
+            if (/^\d/) {
+# Common
+                my ($cvers, $date) = split(/\s+/, $_, 2);
+                    $mixed++ if $type and $type != 1;
+                    $type = 1;
+#                    if ($date =~ /- version ([\d.]+)$/) {
+#                        $cvers = $1;
+#                    }
+                    if ($version eq $cvers) {
+                        $found = $_;
+                        last;
+                    } else {
+                        push(@not_found, "$cvers");
+                    }
+            } elsif (/^\s+version: ([\d.]+)$/) {
+# YAML
+                $mixed++ if $type and $type != 2;
+                $type = 2;
+                if ($version eq $1) {
+                    $found = $_;
+                    last;
+                } else {
+                    push(@not_found, "$1");
+                }
+            } elsif (/^\* ([\d.]+)$/) {
+# Apocal
+                $mixed++ if $type and $type != 3;
+                $type = 3;
+                if ($version eq $1) {
+                    $found = $_;
+                    last;
+                } else {
+                    push(@not_found, "$1");
+                }
+            }
+        }
+        close(IN) or die "Could not close ($change_file) file";
+	if ($found) {
+	    $ok = 1;
+	} else {
+	    $ok = 0;
+	    $msg .= " Not Found.";
+            if (@not_found) {
+                push(@diag, qq(expecting version $version, found versions: ). join(', ', @not_found));
+            } else {
+                push(@diag, qq(expecting version $version, But no versions where found in the Changes file.));
+            }
 	}
-	close(IN) or die;
-	if (@not_found) {
-            $ok = 0;
-	    push(@diag, qq(expecting version $version, got ). join(', ', @not_found));
-	}
+    } 
+    if (!$change_file) {
+	push(@diag, q(No 'Changes' file found));
     }
 
     $test->ok($ok, $msg);
@@ -180,18 +234,28 @@ sub ok_changes
 
 =head1 CHANGES FILE FORMAT
 
-Currently this package parses 2 different types of C<Changes> files.
+Currently this package parses 3 different types of C<Changes> files.
 The first is the common, free style, C<Changes> file where the version
-is first item on an unindetned line:
+is first item on an unindented line:
 
  0.01  Fri May  2 15:56:25 EDT 2008
        - more info  
 
 The second type of file parsed is the L<Module::Changes::YAML> format changes file.
 
+The third type of file parsed has the version number proceeded by an * (asterisk).
+
+ Revision history for Perl extension Foo::Bar
+
+ * 1.00
+
+ Is this a bug or a feature
+
+There are examples of these Changes file in the I<examples> directory.
+
 Create an RT if you need a different format file supported.  If it is not horrid, I will add it.
 
-The Debian style C<Changes> file will like be the first new format added.
+The Debian style C<Changes> file will likely be the first new format added.
 
 =head1 BUGS
 
