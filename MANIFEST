@@ -6,6 +6,8 @@ examples/common/Changes
 examples/common/Makefile
 examples/yaml/Changes
 examples/yaml/Makefile
+examples/versionN/Makefile
+examples/versionN/Changes
 lib/Test/CheckChanges.pm
 Makefile.PL
 MANIFEST			This list of files
@@ -40,6 +42,7 @@ t/multi.t
 t/parse_apocal.t
 t/parse_common.t
 t/parse_yaml.t
+t/parse_versionN.t
 t/pod.t
 t/pod_coverage.t
 t/test1a.t

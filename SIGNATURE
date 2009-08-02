@@ -15,18 +15,20 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 badac0e40137c1d34beb5fabea9c6a3e1f9675eb Build.PL
-SHA1 856a95aaddf95851522c278a441e1eb5c67275a7 Changes
-SHA1 c2fedbb6680aaf68996531e403db051d15d88d48 MANIFEST
-SHA1 57372d26a259f548481912cd35094ffeca66cebd META.yml
+SHA1 2f93cb9deaaaeed03fa7cd02e79f8e94ed655174 Changes
+SHA1 08fcb6462c77296570bea9a62e282bc6881ce316 MANIFEST
+SHA1 ec276c109ca47b4746f8d412a1ec11b5a5b90bfe META.yml
 SHA1 a1d137169191d00d4bdd204211d4a9c84647f21e Makefile.PL
-SHA1 0dd1032049ed906f1b66e2bca5a05767aa7c9ca1 README
+SHA1 2d8e1d8c794dd1ad5aeff967779446a9616cae47 README
 SHA1 27f9fc192c38a30171338e66520e43326ea85cb5 examples/apocal/Changes
 SHA1 d099144eb6e8b85b4331e676d3a972b627e4d16b examples/apocal/Makefile
 SHA1 6a677ea6f79a4604e073a4582989f81d997f202d examples/common/Changes
 SHA1 5c084c50fe44844576993233cda1c749fd7a389f examples/common/Makefile
+SHA1 cf9f1185e01f970797669d1dc52f11590063bd7a examples/versionN/Changes
+SHA1 5df9d5e6d83b274305c2109a287ac113f87c3e56 examples/versionN/Makefile
 SHA1 5eede8ff157d5f64920965838cb23090aefd8341 examples/yaml/Changes
 SHA1 9c4243cc82bea6335c6a6cba6de89647ae9c5c36 examples/yaml/Makefile
-SHA1 ca06436f394be9e59fc22d3df92879d45e5b0f8a lib/Test/CheckChanges.pm
+SHA1 0a19d87b88caa605354a864aed55b96b8b464f45 lib/Test/CheckChanges.pm
 SHA1 0c791db5cdce98d392b9f7446f370468b4169af1 t/bad/missing2/README
 SHA1 552de64c0259d5b506cd1c73425e30b442b202b3 t/bad/mixxed/Changes
 SHA1 cc2f87f5e32b9b1ca7fe27e064e1364d15a54139 t/bad/mixxed/Makefile
@@ -55,6 +57,7 @@ SHA1 03638778b066abe4e93198abe7492a6d9fa5d6b2 t/mixxed.t
 SHA1 2f7de5c0790d640362d7dc070213b5bdba9bc94f t/multi.t
 SHA1 e3e2dfa2ee2cd40f9f0ba23dd175c649effc68c7 t/parse_apocal.t
 SHA1 a31358d01470c99efcc9a70f88dc134182610795 t/parse_common.t
+SHA1 2468db6554123c5d86c89cf0a1bdfa9156654fe3 t/parse_versionN.t
 SHA1 e188b8247008aa5125f4cc6d36788635426e4c5a t/parse_yaml.t
 SHA1 9d38eb83b6fa38c6d35dc1892b5a03f108e0719f t/pod.t
 SHA1 2adc8acd2956b87972abc56ff01f46541e86165b t/pod_coverage.t
@@ -73,8 +76,8 @@ SHA1 2c042fe0f0d689753eb5ce2d6930ad7224e48d86 t/unit.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.9 (GNU/Linux)
 
-iGcEARECACcFAko1r5ggGmh0dHA6Ly93d3cuZ2FtMy5uZXQvcG9saWN5Lmh0bWwA
-CgkQliSr/X1H0Fzq/wCgoUx2DLVLhE6luV5uikP5x58iJqcAniq7+Eof8IlklYpv
-UjCjcTZ+NTRZ
-=KYcX
+iGcEARECACcFAkp1t2EgGmh0dHA6Ly93d3cuZ2FtMy5uZXQvcG9saWN5Lmh0bWwA
+CgkQliSr/X1H0FzbLQCfXeJ8blbqOe2C0LEdy9KW+FWsj+0AoPhxBD03B6RLbPln
+WNFj9rs5OV8M
+=dLIE
 -----END PGP SIGNATURE-----

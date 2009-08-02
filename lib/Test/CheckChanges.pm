@@ -17,11 +17,11 @@ Test::CheckChanges - Check that the Changes file matches the distribution.
 
 =head1 VERSION
 
-Version 0.07
+Version 0.08
 
 =cut
 
-our $VERSION = 0.07;
+our $VERSION = 0.08;
 
 =head1 SYNOPSIS
 
@@ -205,6 +205,16 @@ sub ok_changes
                 } else {
                     push(@not_found, "$1");
                 }
+            } elsif (/^Version ([\d.]+)($|[:,[:space:]])/) {
+# Plain "Version N"
+                $mixed++ if $type and $type != 3;
+                $type = 4;
+                if ($version eq $1) {
+                    $found = $_;
+                    last;
+                } else {
+                    push(@not_found, "$1");
+                }
             }
         }
         close(IN) or die "Could not close ($change_file) file";
@@ -234,7 +244,7 @@ sub ok_changes
 
 =head1 CHANGES FILE FORMAT
 
-Currently this package parses 3 different types of C<Changes> files.
+Currently this package parses 4 different types of C<Changes> files.
 The first is the common, free style, C<Changes> file where the version
 is first item on an unindented line:
 
@@ -250,6 +260,13 @@ The third type of file parsed has the version number proceeded by an * (asterisk
  * 1.00
 
  Is this a bug or a feature
+
+The fourth type of file parsed starts the line with the word Version
+followed by the version number.
+
+ Version 6.00  17.02.2008
+  + Oops. Fixed version number. '5.10' is less than '5.9'. I thought
+    CPAN would handle this but apparently not..
 
 There are examples of these Changes file in the I<examples> directory.
 

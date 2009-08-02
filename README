@@ -3,7 +3,7 @@ NAME
     distribution.
 
 VERSION
-    Version 0.07
+    Version 0.08
 
 SYNOPSIS
      use Test::CheckChanges;
@@ -45,7 +45,7 @@ FUNCTIONS
         The ok_changes method takes no arguments and returns no value.
 
 CHANGES FILE FORMAT
-    Currently this package parses 3 different types of "Changes" files. The
+    Currently this package parses 4 different types of "Changes" files. The
     first is the common, free style, "Changes" file where the version is
     first item on an unindented line:
 
@@ -63,6 +63,13 @@ CHANGES FILE FORMAT
      * 1.00
 
      Is this a bug or a feature
+
+    The fourth type of file parsed starts the line with the word Version
+    followed by the version number.
+
+     Version 6.00  17.02.2008
+      + Oops. Fixed version number. '5.10' is less than '5.9'. I thought
+        CPAN would handle this but apparently not..
 
     There are examples of these Changes file in the *examples* directory.
 
