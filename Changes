@@ -1,5 +1,14 @@
 Revision history for Perl extension Test::CheckChanges
 
+0.09 Sun, 23 Dec 2009 11:50:01 -0400
+        - All files in the form of /C[Hh][Aa][Nn][Gg][Ee][Ss]/ will be considered 
+	  for use as the changes file.  The first (in perl order) will be used.
+	- Use glob to fix bug 'caseless' filesystems
+	- The text of the "Multiple Changes files found" message was changed.
+	  It no longer contains paths and has different punctuation.
+        - t/multi.t was update for the previous change.
+	- t/test8.t was added to test for more than 2 Changes files.
+
 0.08 Sun, 02 Aug 2009 09:13:11 -0400
 	- Added "Version N" format
 	- Added Test for "Version N" format

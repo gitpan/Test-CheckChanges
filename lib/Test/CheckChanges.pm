@@ -17,11 +17,11 @@ Test::CheckChanges - Check that the Changes file matches the distribution.
 
 =head1 VERSION
 
-Version 0.08
+Version 0.09
 
 =cut
 
-our $VERSION = 0.08;
+our $VERSION = 0.09;
 
 =head1 SYNOPSIS
 
@@ -158,12 +158,21 @@ sub ok_changes
     my $parsed = '';
     my @not_found = ();
 
-    my @change_list = map({my $file = "$home/$_"; (-r $file)?($file):();} @change_files);
+    # glob for the changes file and then filter if needed
+    # this is sorted here so the filesystem is not in control of 
+    #  the order of the files.
+    
+    my @change_list = sort <$home/C[Hh][Aa][Nn][Gg][Ee][Ss]>;
 
-    my $change_file = shift(@change_list);
+    my $change_file = $change_list[0];
 
-    if (@change_list > 0) {
-	push(@diag, qq/Multiple 'Changes' files found (@change_list) using $change_file./);
+    if (@change_list > 1) {
+        for (@change_list) {
+	    s|^$home/||;
+	}
+	push(@diag, qq/Multiple Changes files found (/ .
+	join(', ', map({'"' . $_ . '"'} @change_list)) .
+	qq/) using "$change_list[0]"./);
     }
 
     if ($change_file and $version) {
