@@ -17,6 +17,8 @@ t/bad/missing2/README
 t/bad/mixxed/Changes
 t/bad/mixxed/Makefile
 t/bad/multiple/CHANGES
+t/bad/multiple/CHanges
+t/bad/multiple/ChangeS
 t/bad/multiple/Changes
 t/bad/multiple/Makefile
 t/bad/test1a/_build/build_params

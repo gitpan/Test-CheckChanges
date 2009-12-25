@@ -1,5 +1,11 @@
 Revision history for Perl extension Test::CheckChanges
 
+0.10 Sun, 23 Dec 2009 19:21:01 -0400
+        - Tested on Windows XP
+	- If test8 had been in release 0.09 it would have been removed
+	  in this release
+        - Once again only look for 'Changes' and 'CHANGES' filenames.
+
 0.09 Sun, 23 Dec 2009 11:50:01 -0400
         - All files in the form of /C[Hh][Aa][Nn][Gg][Ee][Ss]/ will be considered 
 	  for use as the changes file.  The first (in perl order) will be used.

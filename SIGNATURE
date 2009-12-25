@@ -15,11 +15,11 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 badac0e40137c1d34beb5fabea9c6a3e1f9675eb Build.PL
-SHA1 dfc945478fd57bb6a07e75cb4b3d411c61103f98 Changes
-SHA1 08fcb6462c77296570bea9a62e282bc6881ce316 MANIFEST
-SHA1 84b4dc03c82313c061ba67d677d260c2b0fccd4a META.yml
+SHA1 8958f0e2ccc8c81b5c578847ebf2c1a0ca050a7a Changes
+SHA1 83bac7f25cf749cf1f46330c4617d964f482cec2 MANIFEST
+SHA1 c6112c384355b623fb9710436e1f98ef8637ef45 META.yml
 SHA1 0905e123e867e834e2f4607df2967fefd7396497 Makefile.PL
-SHA1 f274fc8c797d7ea8da50992df94340658a1de0f9 README
+SHA1 1c46a7fe73097da72aa8a195fd1f4e302472cc16 README
 SHA1 27f9fc192c38a30171338e66520e43326ea85cb5 examples/apocal/Changes
 SHA1 d099144eb6e8b85b4331e676d3a972b627e4d16b examples/apocal/Makefile
 SHA1 6a677ea6f79a4604e073a4582989f81d997f202d examples/common/Changes
@@ -28,11 +28,13 @@ SHA1 cf9f1185e01f970797669d1dc52f11590063bd7a examples/versionN/Changes
 SHA1 5df9d5e6d83b274305c2109a287ac113f87c3e56 examples/versionN/Makefile
 SHA1 5eede8ff157d5f64920965838cb23090aefd8341 examples/yaml/Changes
 SHA1 9c4243cc82bea6335c6a6cba6de89647ae9c5c36 examples/yaml/Makefile
-SHA1 a9c5e5c37f55c52a6de13d97bec268294e79feaf lib/Test/CheckChanges.pm
+SHA1 8e96769f31a151b9f23a74d03f1d994aebfc212e lib/Test/CheckChanges.pm
 SHA1 0c791db5cdce98d392b9f7446f370468b4169af1 t/bad/missing2/README
 SHA1 552de64c0259d5b506cd1c73425e30b442b202b3 t/bad/mixxed/Changes
 SHA1 cc2f87f5e32b9b1ca7fe27e064e1364d15a54139 t/bad/mixxed/Makefile
-SHA1 90fec68554a470af4004c47cc3e3b406446fc6f4 t/bad/multiple/CHANGES
+SHA1 3cdd32a48c727d3b0948b369e2e44bd8e243610c t/bad/multiple/CHANGES
+SHA1 5f27afbc268efe4fe7a7644cee5405c0ba62ef3d t/bad/multiple/CHanges
+SHA1 5f27afbc268efe4fe7a7644cee5405c0ba62ef3d t/bad/multiple/ChangeS
 SHA1 90fec68554a470af4004c47cc3e3b406446fc6f4 t/bad/multiple/Changes
 SHA1 be0b30201e33f5b412e981078aeb0b2951ffd9e2 t/bad/multiple/Makefile
 SHA1 6a677ea6f79a4604e073a4582989f81d997f202d t/bad/test1a/Changes
@@ -54,7 +56,7 @@ SHA1 669ab0db33db07a257eec2f7ebe1e6b6e8644ff1 t/bad/test7/Changes
 SHA1 f5ac356d95fe7b7506fcd2b95cb3acde8cf461ce t/changes.t
 SHA1 a77b6778baef53df903ad8bfa8c10a2706a44a78 t/missing.t
 SHA1 03638778b066abe4e93198abe7492a6d9fa5d6b2 t/mixxed.t
-SHA1 98d7d7272e0f94a266d8e941fe67b9368840a429 t/multi.t
+SHA1 84422223d57d38219d9d0b57e6e12edf9df843ec t/multi.t
 SHA1 e3e2dfa2ee2cd40f9f0ba23dd175c649effc68c7 t/parse_apocal.t
 SHA1 a31358d01470c99efcc9a70f88dc134182610795 t/parse_common.t
 SHA1 2468db6554123c5d86c89cf0a1bdfa9156654fe3 t/parse_versionN.t
@@ -76,8 +78,8 @@ SHA1 2c042fe0f0d689753eb5ce2d6930ad7224e48d86 t/unit.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
-iGcEARECACcFAkszqNwgGmh0dHA6Ly93d3cuZ2FtMy5uZXQvcG9saWN5Lmh0bWwA
-CgkQliSr/X1H0FzZDwCg8UtGkrW2SWrPsAW+a1f2rIt36xoAn2hyd1HOISagRYZp
-6Nv7YHhM4VoD
-=xSww
+iGcEARECACcFAks0G4MgGmh0dHA6Ly93d3cuZ2FtMy5uZXQvcG9saWN5Lmh0bWwA
+CgkQliSr/X1H0Fys1gCaA9mTiVNe/0ZyklJfiBwfVTp5m/MAn2BYB6jzM3UiC2gM
+46ECU88Tki17
+=iTJc
 -----END PGP SIGNATURE-----

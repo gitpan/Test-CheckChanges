@@ -7,6 +7,7 @@ use Cwd;
 use Carp;
 use File::Spec;
 use File::Basename;
+use File::Glob "bsd_glob";
 use Test::Builder;
 
 our $test      = Test::Builder->new();
@@ -17,11 +18,11 @@ Test::CheckChanges - Check that the Changes file matches the distribution.
 
 =head1 VERSION
 
-Version 0.09
+Version 0.10
 
 =cut
 
-our $VERSION = 0.09;
+our $VERSION = '0.10';
 
 =head1 SYNOPSIS
 
@@ -60,6 +61,8 @@ I<Changes> files that are recognized.
 
 our $order = '';
 our @change_files = qw (Changes CHANGES);
+our $changes_regex = qr/(Changes|CHANGES)$/;
+our $glob = "C[Hh][Aa][Nn][Gg][Ee][Ss]";
 
 sub import {
     my $self   = shift;
@@ -105,22 +108,21 @@ sub ok_changes
 
     if (defined (my $x = $test->has_plan())) {
         if ($x eq 'no_plan') {
-#	    warn "No plan";
-	} else {
-#	    warn "Plan $x";
-	}
+#           warn "No plan";
+        } else {
+#           warn "Plan $x";
+        }
     } else {
-	$test->plan(tests => 1);
+        $test->plan(tests => 1);
     }
 
-    my $base = Cwd::realpath(dirname(File::Spec->rel2abs($0)) . '/../' . $_base);
+    my $base = Cwd::realpath(File::Spec->catdir(dirname($0), '..', $_base));
 
-    my $bool     = 1;
     my $home     = $base;
     my @diag = ();
 
-    my $makefile = Cwd::realpath($base . '/Makefile');
-    my $build = Cwd::realpath($home . '/_build/build_params');
+    my $makefile = File::Spec->catdir($base, 'Makefile');
+    my $build = File::Spec->catdir($home, '_build', 'build_params');
 
     my $extra_text;
 
@@ -131,24 +133,24 @@ sub ok_changes
         close(IN);
         my $temp = eval $data;
         $version = $temp->[2]{dist_version};
-	$extra_text = "Build";
+        $extra_text = "Build";
     } elsif ($makefile && -r $makefile) {
         open(IN, $makefile) or die "Could not open $makefile";
         while (<IN>) {
             chomp;
             if (/^VERSION\s*=\s*(.*)\s*/) {
                 $version = $1;
-		$extra_text = "Makefile";
+                $extra_text = "Makefile";
                 last;
             }
         }
         close(IN) or die "Could not close $makefile";
     }
     if ($version) {
-	$msg = "CheckChages $version " . $extra_text;
+        $msg = "CheckChages $version " . $extra_text;
     } else {
         push(@diag, "No way to determine version");
-	$msg = "No Build or Makefile found";
+        $msg = "No Build or Makefile found";
     }
 
     my $ok = 0;
@@ -162,17 +164,18 @@ sub ok_changes
     # this is sorted here so the filesystem is not in control of 
     #  the order of the files.
     
-    my @change_list = sort <$home/C[Hh][Aa][Nn][Gg][Ee][Ss]>;
+    my $glob_path = File::Spec->catdir($home, $glob);
+    my @change_list = sort { $b cmp $a } grep(m|$changes_regex|, bsd_glob($glob_path));
 
     my $change_file = $change_list[0];
 
     if (@change_list > 1) {
         for (@change_list) {
-	    s|^$home/||;
-	}
-	push(@diag, qq/Multiple Changes files found (/ .
-	join(', ', map({'"' . $_ . '"'} @change_list)) .
-	qq/) using "$change_list[0]"./);
+            s|^$home/||;
+        }
+        push(@diag, qq/Multiple Changes files found (/ .
+        join(', ', map({'"' . $_ . '"'} @change_list)) .
+        qq/) using "$change_list[0]"./);
     }
 
     if ($change_file and $version) {
@@ -218,7 +221,7 @@ sub ok_changes
 # Plain "Version N"
                 $mixed++ if $type and $type != 3;
                 $type = 4;
-                if ($version eq $1) {
+                if ($version eq $1 || $version eq $1) {
                     $found = $_;
                     last;
                 } else {
@@ -227,25 +230,25 @@ sub ok_changes
             }
         }
         close(IN) or die "Could not close ($change_file) file";
-	if ($found) {
-	    $ok = 1;
-	} else {
-	    $ok = 0;
-	    $msg .= " Not Found.";
+        if ($found) {
+            $ok = 1;
+        } else {
+            $ok = 0;
+            $msg .= " Not Found.";
             if (@not_found) {
                 push(@diag, qq(expecting version $version, found versions: ). join(', ', @not_found));
             } else {
                 push(@diag, qq(expecting version $version, But no versions where found in the Changes file.));
             }
-	}
+        }
     } 
     if (!$change_file) {
-	push(@diag, q(No 'Changes' file found));
+        push(@diag, q(No 'Changes' file found));
     }
 
     $test->ok($ok, $msg);
     for my $diag (@diag) {
-	$test->diag($diag);
+        $test->diag($diag);
     }
 }
 

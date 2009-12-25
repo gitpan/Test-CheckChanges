@@ -5,7 +5,7 @@ $Test::CheckChanges::test = bless {}, 'Dummy';
 our $x = $Test::CheckChanges::test;
 
 our @q = (
-    qr/Multiple Changes files found \("CHANGES", "Changes"\) using "CHANGES"./,
+    qr/Multiple Changes files found \("Changes", "CHANGES"\) using "Changes"./,
 );
 
 our $count = 0;
