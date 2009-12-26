@@ -7,8 +7,11 @@ if ($@) {
     plan skip_all => 'Module Build needed for this test.';
 }
 
+use File::Basename;
+
+our $name = basename($0, qw(.t));
 ok_changes(
-    base => 't/bad/test1a'
+    base => File::Spec->catdir('t', 'bad', $name),
 );
 
 chmod(0400, 't/bad/test1/_build/build_params');

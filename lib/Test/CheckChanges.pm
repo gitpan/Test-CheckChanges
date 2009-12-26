@@ -18,11 +18,11 @@ Test::CheckChanges - Check that the Changes file matches the distribution.
 
 =head1 VERSION
 
-Version 0.10
+Version 0.11
 
 =cut
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 =head1 SYNOPSIS
 
@@ -221,7 +221,7 @@ sub ok_changes
 # Plain "Version N"
                 $mixed++ if $type and $type != 3;
                 $type = 4;
-                if ($version eq $1 || $version eq $1) {
+                if ($version eq $1) {
                     $found = $_;
                     last;
                 } else {

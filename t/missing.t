@@ -37,7 +37,7 @@ our $count = 0;
 
 
 Test::CheckChanges::ok_changes(
-    base => 't/bad/missing',
+    base => File::Spec->catdir('t', 'bad', 'missing2'),
 );
 
 while ($count < 2) {

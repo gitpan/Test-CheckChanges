@@ -35,8 +35,11 @@ our $count = 0;
 }
 
 
+use File::Basename;
+
+our $name = basename($0, qw(.t));
 Test::CheckChanges::ok_changes(
-    base => 't/bad/test2',
+    base => File::Spec->catdir('t', 'bad', $name),
 );
 
 while ($count < @q) {

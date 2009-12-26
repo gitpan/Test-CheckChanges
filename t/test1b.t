@@ -43,11 +43,12 @@ chmod(0, 't/bad/test1b/_build/build_params');
     sub has_plan { undef; };
 }
 
+use File::Basename;
 
 our $name = $0;
-$name =~ s!^(?:.*/)?(.+?)(?:\.[^.]*)?$!$1!;
+$name = basename($0, qw(.t));
 Test::CheckChanges::ok_changes(
-    base => 't/bad/' . $name,
+    base => File::Spec->catdir('t', 'bad', $name),
 );
 
 while ($count < @q) {

@@ -1,5 +1,8 @@
 Revision history for Perl extension Test::CheckChanges
 
+0.11 Sun, 23 Dec 2009 19:21:01 -0400
+	- Now works on Windows XP
+
 0.10 Sun, 23 Dec 2009 19:21:01 -0400
         - Tested on Windows XP
 	- If test8 had been in release 0.09 it would have been removed

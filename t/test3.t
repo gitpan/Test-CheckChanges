@@ -36,10 +36,11 @@ our $count = 0;
 }
 
 
-our $name = $0;
-$name =~ s!^(?:.*/)?(.+?)(?:\.[^.]*)?$!$1!;
+use File::Basename;
+
+our $name = basename($0, qw(.t));
 Test::CheckChanges::ok_changes(
-    base => 't/bad/' . $name,
+    base => File::Spec->catdir('t', 'bad', $name),
 );
 
 while ($count < @q) {

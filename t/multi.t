@@ -8,6 +8,22 @@ our @q = (
     qr/Multiple Changes files found \("Changes", "CHANGES"\) using "Changes"./,
 );
 
+our $name = File::Spec->catdir('t', 'bad', 'multiple', 'CHANGES');
+if (-e $name) {
+    plan skip_all => "case insensitive filesystem";
+}
+
+our @files;
+for $x (qw( CHANGES CHanges ChangeS)) {
+    push @files, File::Spec->catdir('t', 'bad', 'multiple', $x);
+}
+
+for (@files) {
+    open X, ">$_";
+    print X "bob";
+    close X;
+}
+
 our $count = 0;
 {
     package Dummy;
@@ -36,9 +52,13 @@ our $count = 0;
 
 
 Test::CheckChanges::ok_changes(
-    base => 't/bad/multiple',
+    base => File::Spec->catdir('t', 'bad', 'multiple'),
 );
 
 while ($count < 1) {
     print sprintf("not ok %s\n", ++$count+1);;
+}
+
+for (@files) {
+    unlink;
 }
