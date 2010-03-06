@@ -1,4 +1,3 @@
-use Test::More;
 require Test::CheckChanges;
 
 $Test::CheckChanges::test = bless {}, 'Dummy';
@@ -13,6 +12,9 @@ our $count = 0;
 {
     package Dummy;
     sub plan {
+       die caller;
+    }
+    sub done_testing {
 	print "1..3\n";
     };
     sub ok {
@@ -34,7 +36,6 @@ our $count = 0;
     }; 
     sub has_plan { undef; }
 }
-
 
 Test::CheckChanges::ok_changes(
     base => File::Spec->catdir('t', 'bad', 'missing2'),

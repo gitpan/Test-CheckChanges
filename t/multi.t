@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 use Test::More;
 require Test::CheckChanges;
 
@@ -27,7 +30,7 @@ for (@files) {
 our $count = 0;
 {
     package Dummy;
-    sub plan {
+    sub done_testing {
 	print "1..2\n";
     };
     sub ok {

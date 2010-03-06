@@ -1,6 +1,5 @@
 use strict;
 
-use Test::More;
 require Test::CheckChanges;
 
 $Test::CheckChanges::test = bless {}, 'Dummy';
@@ -14,7 +13,7 @@ our $count = 0;
 
 {
     package Dummy;
-    sub plan {
+    sub done_testing {
 	print "1.." . (@q + 1) . "\n";
     };
     sub ok {

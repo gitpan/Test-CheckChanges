@@ -4,15 +4,18 @@ examples/apocal/Changes
 examples/apocal/Makefile
 examples/common/Changes
 examples/common/Makefile
+examples/versionN/Changes
+examples/versionN/Makefile
 examples/yaml/Changes
 examples/yaml/Makefile
-examples/versionN/Makefile
-examples/versionN/Changes
 lib/Test/CheckChanges.pm
 Makefile.PL
 MANIFEST			This list of files
 META.yml
 README
+t/bad/CHANGES
+t/bad/Changes
+t/bad/Makefile
 t/bad/missing2/README
 t/bad/mixxed/Changes
 t/bad/mixxed/Makefile
@@ -40,8 +43,8 @@ t/mixxed.t
 t/multi.t
 t/parse_apocal.t
 t/parse_common.t
-t/parse_yaml.t
 t/parse_versionN.t
+t/parse_yaml.t
 t/pod.t
 t/pod_coverage.t
 t/test1a.t
@@ -55,5 +58,7 @@ t/test6.t
 t/test7.t
 t/testx.t
 t/testy.t
+t/testz.t
+t/tpcp.t
 t/unit.t
 SIGNATURE    Added here by Module::Build

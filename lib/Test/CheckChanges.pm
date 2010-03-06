@@ -1,5 +1,4 @@
 package Test::CheckChanges;
-
 use strict;
 use warnings;
 
@@ -18,11 +17,11 @@ Test::CheckChanges - Check that the Changes file matches the distribution.
 
 =head1 VERSION
 
-Version 0.11
+Version 0.12
 
 =cut
 
-our $VERSION = '0.11';
+our $VERSION = '0.12_0';
 
 =head1 SYNOPSIS
 
@@ -32,7 +31,8 @@ our $VERSION = '0.11';
 You can make the test optional with 
 
  use Test::More;
- eval 'use Test::CheckChanges;';
+ eval { require Test::CheckChanges };
+
  if ($@) {
      plan skip_all => 'Test::CheckChanges required for testing the Changes file';
  }
@@ -65,9 +65,8 @@ our $changes_regex = qr/(Changes|CHANGES)$/;
 our $glob = "C[Hh][Aa][Nn][Gg][Ee][Ss]";
 
 sub import {
-    my $self   = shift;
+    my ($self, %plan) = @_;
     my $caller = caller;
-    my %plan   = @_;
 
     if (defined $plan{order}) {
        $order = $plan{order};
@@ -75,12 +74,13 @@ sub import {
     }
 
     for my $func ( qw( ok_changes ) ) {
-        no strict 'refs';
+        no strict 'refs';	## no critic
         *{$caller."::".$func} = \&$func;
     }
 
     $test->exported_to($caller);
     $test->plan(%plan);
+    return;
 }
 
 =head1 FUNCTIONS
@@ -96,25 +96,18 @@ The ok_changes method takes no arguments and returns no value.
 =back
 
 =cut
+ 
+our @not_found;
 
 sub ok_changes
 {
+    my %p;
+    %p = @_ if @_ % 2 == 0;
     my $version;
     my $msg = 'Unknown Error';
-    my %p = @_;
     my $_base = delete $p{base} || '';
 
-    die "ok_changes takes no arguments" if keys %p;
-
-    if (defined (my $x = $test->has_plan())) {
-        if ($x eq 'no_plan') {
-#           warn "No plan";
-        } else {
-#           warn "Plan $x";
-        }
-    } else {
-        $test->plan(tests => 1);
-    }
+    die "ok_changes takes no arguments" if keys %p || @_ % 2 == 1;
 
     my $base = Cwd::realpath(File::Spec->catdir(dirname($0), '..', $_base));
 
@@ -128,15 +121,15 @@ sub ok_changes
 
     if ($build && -r $build) {
         require Module::Build::Version;
-        open(IN, $build);
-        my $data = join '', <IN>;
-        close(IN);
-        my $temp = eval $data;
+        open(my $in, '<', $build);
+        my $data = join '', <$in>;
+        close($in);
+        my $temp = eval $data;		## no critic
         $version = $temp->[2]{dist_version};
         $extra_text = "Build";
     } elsif ($makefile && -r $makefile) {
-        open(IN, $makefile) or die "Could not open $makefile";
-        while (<IN>) {
+        open(my $in, '<', $makefile) or die "Could not open $makefile";
+        while (<$in>) {
             chomp;
             if (/^VERSION\s*=\s*(.*)\s*/) {
                 $version = $1;
@@ -144,7 +137,7 @@ sub ok_changes
                 last;
             }
         }
-        close(IN) or die "Could not close $makefile";
+        close($in) or die "Could not close $makefile";
     }
     if ($version) {
         $msg = "CheckChages $version " . $extra_text;
@@ -158,14 +151,14 @@ sub ok_changes
     my $mixed = 0;
     my $found = 0;
     my $parsed = '';
-    my @not_found = ();
+    @not_found = ();
 
     # glob for the changes file and then filter if needed
     # this is sorted here so the filesystem is not in control of 
     #  the order of the files.
     
     my $glob_path = File::Spec->catdir($home, $glob);
-    my @change_list = sort { $b cmp $a } grep(m|$changes_regex|, bsd_glob($glob_path));
+    my @change_list = sort { $b cmp $a } grep({ m|$changes_regex|} bsd_glob($glob_path));
 
     my $change_file = $change_list[0];
 
@@ -179,11 +172,11 @@ sub ok_changes
     }
 
     if ($change_file and $version) {
-        open(IN, $change_file) or die "Could not open ($change_file) File";
+        open(my $in, '<', $change_file) or die "Could not open ($change_file) File";
         my $type = 0;
-        while (<IN>) {
+        while (<$in>) {
             chomp;
-            if (/^\d/) {
+            if (/^(\d|v\d)/) {
 # Common
                 my ($cvers, $date) = split(/\s+/, $_, 2);
                     $mixed++ if $type and $type != 1;
@@ -207,7 +200,7 @@ sub ok_changes
                 } else {
                     push(@not_found, "$1");
                 }
-            } elsif (/^\* ([\d.]+)$/) {
+            } elsif (/^\* (v?[\d._]+)$/) {
 # Apocal
                 $mixed++ if $type and $type != 3;
                 $type = 3;
@@ -217,9 +210,9 @@ sub ok_changes
                 } else {
                     push(@not_found, "$1");
                 }
-            } elsif (/^Version ([\d.]+)($|[:,[:space:]])/) {
+            } elsif (/^Version (v?[\d._]+)($|[:,[:space:]])/) {
 # Plain "Version N"
-                $mixed++ if $type and $type != 3;
+                $mixed++ if $type and $type != 4;
                 $type = 4;
                 if ($version eq $1) {
                     $found = $_;
@@ -229,7 +222,7 @@ sub ok_changes
                 }
             }
         }
-        close(IN) or die "Could not close ($change_file) file";
+        close($in) or die "Could not close ($change_file) file";
         if ($found) {
             $ok = 1;
         } else {
@@ -249,6 +242,13 @@ sub ok_changes
     $test->ok($ok, $msg);
     for my $diag (@diag) {
         $test->diag($diag);
+    }
+    return;
+}
+
+END {
+    if (!defined $test->has_plan()) {
+	$test->done_testing(1);
     }
 }
 
@@ -298,7 +298,7 @@ L<http://rt.cpan.org/Public/Dist/Display.html?Name=Test-CheckChanges>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright (C) 2008 G. Allen Morris III, all rights reserved.
+Copyright (C) 2008-2010 G. Allen Morris III, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

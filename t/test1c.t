@@ -1,4 +1,5 @@
 use strict;
+use warnings;
 
 use Test::More;
 require Test::CheckChanges;
@@ -24,7 +25,7 @@ chmod(0, 't/bad/test1b/_build/build_params');
 
 {
     package Dummy;
-    sub plan {
+    sub done_testing {
 	print "1.." . (@q + 1) . "\n";
     };
     sub ok {

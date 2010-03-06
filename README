@@ -3,7 +3,7 @@ NAME
     distribution.
 
 VERSION
-    Version 0.11
+    Version 0.12
 
 SYNOPSIS
      use Test::CheckChanges;
@@ -12,7 +12,8 @@ SYNOPSIS
     You can make the test optional with
 
      use Test::More;
-     eval 'use Test::CheckChanges;';
+     eval { require Test::CheckChanges };
+
      if ($@) {
          plan skip_all => 'Test::CheckChanges required for testing the Changes file';
      }
@@ -45,12 +46,12 @@ FUNCTIONS
         The ok_changes method takes no arguments and returns no value.
 
 CHANGES FILE FORMAT
-    Currently this package parses 4 different types of "Changes" files. The
-    first is the common, free style, "Changes" file where the version is
+    Currently this package parses 4 different types of `Changes' files. The
+    first is the common, free style, `Changes' file where the version is
     first item on an unindented line:
 
      0.01  Fri May  2 15:56:25 EDT 2008
-           - more info
+           - more info  
 
     The second type of file parsed is the Module::Changes::YAML format
     changes file.
@@ -76,19 +77,19 @@ CHANGES FILE FORMAT
     Create an RT if you need a different format file supported. If it is not
     horrid, I will add it.
 
-    The Debian style "Changes" file will likely be the first new format
+    The Debian style `Changes' file will likely be the first new format
     added.
 
 BUGS
     Please open an RT if you find a bug.
 
-    <http://rt.cpan.org/Public/Dist/Display.html?Name=Test-CheckChanges>
+    http://rt.cpan.org/Public/Dist/Display.html?Name=Test-CheckChanges
 
 AUTHOR
     "G. Allen Morris III" <gam3@gam3.net>
 
 COPYRIGHT & LICENSE
-    Copyright (C) 2008 G. Allen Morris III, all rights reserved.
+    Copyright (C) 2008-2010 G. Allen Morris III, all rights reserved.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.

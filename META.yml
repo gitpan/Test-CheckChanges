@@ -1,27 +1,27 @@
 ---
-name: Test-CheckChanges
-version: 0.11
+abstract: 'Check that the Changes file matches the distribution.'
 author:
-  - '"G. Allen Morris III" <gam3@gam3.net>'
-abstract: Check that the Changes file matches the distribution.
-license: perl
-resources:
-  license: http://dev.perl.org/licenses/
+  - "\"G. Allen Morris III\" <gam3@gam3.net>"
 build_requires:
   Test::More: 0
-requires:
-  perl: 5.006
+configure_requires:
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3601'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Test-CheckChanges
+provides:
+  Test::CheckChanges:
+    file: lib/Test/CheckChanges.pm
+    version: 0.12_0
 recommends:
   Module::Build: 0
   Test::Pod: 0
   Test::Pod::Coverage: 0
-configure_requires:
-  Module::Build: 0.340201
-provides:
-  Test::CheckChanges:
-    file: lib/Test/CheckChanges.pm
-    version: 0.11
-generated_by: Module::Build version 0.340201
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+requires:
+  perl: 5.006
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.12_0

@@ -1,4 +1,3 @@
-use Test::More;
 require Test::CheckChanges;
 
 $Test::CheckChanges::test = bless {}, 'Dummy';
@@ -11,7 +10,7 @@ qr/expecting version 1.020, found versions: 0.02, 0.01/
 our $count = 0;
 {
     package Dummy;
-    sub plan {
+    sub done_testing {
 	print "1.." . (@q + 1) . "\n";
     };
     sub ok {
