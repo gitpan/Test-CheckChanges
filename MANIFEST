@@ -4,10 +4,14 @@ examples/apocal/Changes
 examples/apocal/Makefile
 examples/common/Changes
 examples/common/Makefile
+examples/common3/Changes
+examples/common3/Makefile
 examples/versionN/Changes
 examples/versionN/Makefile
 examples/yaml/Changes
 examples/yaml/Makefile
+examples/mixxed/Changes
+examples/mixxed/Makefile
 lib/Test/CheckChanges.pm
 Makefile.PL
 MANIFEST			This list of files
@@ -43,6 +47,8 @@ t/mixxed.t
 t/multi.t
 t/parse_apocal.t
 t/parse_common.t
+t/parse_common3.t
+t/parse_all.t
 t/parse_versionN.t
 t/parse_yaml.t
 t/pod.t
@@ -61,4 +67,5 @@ t/testy.t
 t/testz.t
 t/tpcp.t
 t/unit.t
+t/perlcriticrc
 SIGNATURE    Added here by Module::Build

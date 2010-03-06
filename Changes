@@ -1,6 +1,6 @@
 Revision history for Perl extension Test::CheckChanges
 
-0.12_0 Sat, 06 Mar 2010 17:03:29 -0500
+0.14 Sat, 06 Mar 2010 17:03:29 -0500
 	- Recognize developer releases / Bug #54856
 	- Recognize v0.0.0 format
 

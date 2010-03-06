@@ -17,11 +17,11 @@ Test::CheckChanges - Check that the Changes file matches the distribution.
 
 =head1 VERSION
 
-Version 0.12
+Version 0.14
 
 =cut
 
-our $VERSION = '0.12_0';
+our $VERSION = '0.14';
 
 =head1 SYNOPSIS
 

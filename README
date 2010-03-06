@@ -3,7 +3,7 @@ NAME
     distribution.
 
 VERSION
-    Version 0.12
+    Version 0.14
 
 SYNOPSIS
      use Test::CheckChanges;

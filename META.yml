@@ -15,7 +15,7 @@ name: Test-CheckChanges
 provides:
   Test::CheckChanges:
     file: lib/Test/CheckChanges.pm
-    version: 0.12_0
+    version: 0.14
 recommends:
   Module::Build: 0
   Test::Pod: 0
@@ -24,4 +24,4 @@ requires:
   perl: 5.006
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.12_0
+version: 0.14
